@@ -53,7 +53,6 @@ const authController = {
                     msg: 'Login sucess',
                     data: result,
                     access: accessToken,
-                    refresh: refreshToken
                 });
             }
         } catch (err) {
@@ -89,9 +88,6 @@ const authController = {
     },
     requestRefreshToken:async(req,res,next)=>{
         let currentRefreshToken=req.cookies.refreshToken;
-        console.log('================Current RefreshToken====================');
-        console.log(currentRefreshToken);
-        console.log('====================================');
         if(!currentRefreshToken){
             return  res.status(401).json({msg:'Account not authenticated !'});
         }
@@ -100,7 +96,7 @@ const authController = {
         }
         jwt.verify(currentRefreshToken,process.env.REFRESH_TOKEN_KEY,(err,usr)=>{
             if(err){
-                console.log(err);
+                return res.status(500).json({msg:'error',data:err})
             }
             refreshTokens=refreshTokens.filter((token)=>currentRefreshToken!==token);
             const newAccessToken=authController.generateAccessToken(usr);
@@ -109,7 +105,7 @@ const authController = {
             res.cookie('refreshToken',newRefreshToken,{
                 samesite:true,
                 secure:false,
-                // httpOnly:true,
+                httpOnly:true,
                 path:'/',
                 sameSite:'strict'
             })
