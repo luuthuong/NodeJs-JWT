@@ -3,7 +3,7 @@ const userController={
     getUserAll:async(req,res)=>{
         try{
             const users=await User.find()
-            res.status(200).json({
+            return res.status(200).json({
                 msg:'sucess',
                 data:users
             })
