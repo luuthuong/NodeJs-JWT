@@ -17,7 +17,7 @@ const middleController={
         middleController.verifyToken(req,res,()=>{
             if(req.user.id===req.params.id||req.user.admin)
             {
-                next()
+                next();
             }
             else{
                 res.status(403).json({msg:"User not allow !"})

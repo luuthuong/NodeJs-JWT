@@ -1,26 +1,25 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
-
+import React, { useEffect, useState } from 'react'
+import PropTypes from 'prop-types'
+import FormControll from './formcontrol/FormControll';
+import './App.css'
 function App() {
+    const[data,setData]=useState();
+    useEffect(()=>{
+        const getData=async()=>{
+            const res=await fetch("http://localhost:8080/api/usr")
+            const json=await res.json()
+            console.log(json)
+        }
+        // getData()
+    },[])
+    
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+        <FormControll/>
     </div>
-  );
+  )
 }
 
-export default App;
+App.propTypes = {}
+
+export default App

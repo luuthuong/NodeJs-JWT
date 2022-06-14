@@ -112,6 +112,7 @@ const authController = {
             return res.status(200).json({
                 msg:'Refresh Token update!',
                 newAccessToken:newAccessToken,
+                RefreshTokens:refreshTokens
             })
         })
     }
